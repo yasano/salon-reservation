@@ -61,6 +61,7 @@
   const menus=stores.flatMap(store=>menuTemplates.map(m=>({...m,id:store.id+'-'+m.id,templateId:m.id,storeId:store.id})));
   let staffSchedules=[];
   let storeClosures=[];
+  let demoScheduleSeeded=false;
   const seed=(id,storeId,offset,sid,seat,mid,customer,phone,note,attendance='upcoming')=>{
     const m=menus.find(x=>x.storeId===storeId&&x.templateId===mid);return {id,storeId,dayOffset:offset,date:dateKey(offset),stylistId:sid,seatId:seat,time:'10:00',menuId:m.id,menuName:m.name,duration:m.duration,price:m.price,customer,phone,note,status:'confirmed',attendance,line:false};
   };
@@ -87,16 +88,17 @@
       if(Array.isArray(saved.seats))seats.splice(0,seats.length,...saved.seats);
       if(Array.isArray(saved.menus))menus.splice(0,menus.length,...saved.menus);
       if(Array.isArray(saved.staffSchedules))staffSchedules.splice(0,staffSchedules.length,...saved.staffSchedules);
-      if(Array.isArray(saved.storeClosures))storeClosures.splice(0,storeClosures.length,...saved.storeClosures);
       else if(Array.isArray(saved.pairRules)){
         const migrated=[];saved.pairRules.forEach(rule=>(rule.days||[]).forEach(day=>{if(!migrated.some(item=>item.staffId===rule.stylistId&&item.days[0]===day))migrated.push({id:rule.stylistId+'-schedule-'+day,storeId:rule.storeId,staffId:rule.stylistId,days:[day],start:rule.start||'10:00',end:rule.end||'19:00'});}));
         staffSchedules.splice(0,staffSchedules.length,...migrated);
       }
+      if(Array.isArray(saved.storeClosures))storeClosures.splice(0,storeClosures.length,...saved.storeClosures);
+      demoScheduleSeeded=saved.demoScheduleSeeded===true;
       if(Array.isArray(saved.stylists))stylists.splice(0,stylists.length,...saved.stylists);
     }catch(_){/* Browser storage can be unavailable for local files; the mock still works in memory. */}
   }
   function saveDemoState(){
-    try{sessionStorage.setItem('knot-prototype-session-v3',JSON.stringify({day:dateKey(0),bookings,staffSchedules,storeClosures,stylists,stores,venues,owners,seats,menus}));}catch(_){/* Keep the current interaction usable if the browser blocks storage. */}
+    try{sessionStorage.setItem('knot-prototype-session-v3',JSON.stringify({day:dateKey(0),bookings,staffSchedules,storeClosures,demoScheduleSeeded,stylists,stores,venues,owners,seats,menus}));}catch(_){/* Keep the current interaction usable if the browser blocks storage. */}
   }
   restoreDemoState();
   defaultStaffs.forEach(person=>{if(!stylists.some(current=>current.id===person.id))stylists.push(person);});
@@ -112,6 +114,10 @@
     if(start==='10:00'&&end==='19:00')return;
     for(let offset=0;offset<35;offset++)if((rule.days||[]).includes(dateInfo(offset).weekDayIndex))staffSchedules.push({id:rule.staffId+'-'+dateKey(offset)+'-'+toMinutes(start),storeId:rule.storeId,staffId:rule.staffId,date:dateKey(offset),start,end});
   });
+  if(!demoScheduleSeeded&&!staffSchedules.length){
+    stylists.forEach((person,index)=>{for(let offset=1;offset<=21;offset++)if((offset+index)%3!==0)staffSchedules.push({id:'demo-'+person.id+'-'+dateKey(offset),storeId:person.storeId,staffId:person.id,date:dateKey(offset),start:'10:00',end:'19:00'});});
+  }
+  demoScheduleSeeded=true;
   const legacyVenueByStore={ 'store-kichijoji':'venue-kichijoji','store-nakameguro':'venue-nakameguro','store-sangenjaya':'venue-sangenjaya' };
   stores.forEach(store=>{store.venueId=store.venueId||legacyVenueByStore[store.id]||venues[0]?.id||'';});
   stylists.forEach(person=>{const seeded=defaultStaffs.find(item=>item.id===person.id);delete person.seats;person.role='スタッフ';person.displayTitle=person.displayTitle||seeded?.displayTitle||'スタイリスト';person.email=person.email||seeded?.email||'';person.notifyByEmail=true;if(typeof person.socialUrl!=='string')person.socialUrl='';});
