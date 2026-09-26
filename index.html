@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fcf9f7">
+  <meta name="description" content="SCENE 中目黒店の予約ページです。">
+  <title>SCENE 中目黒店 — ご予約</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="customer-topbar">
+    <a class="customer-brand" href="#" id="brandHome" aria-label="SCENE 中目黒店">
+      <span class="customer-brand-mark" id="brandMark">S</span><span id="brandName">SCENE</span>
+      <span class="brand-divider"></span><span class="brand-caption" id="brandCaption">中目黒店</span>
+    </a>
+  </header>
+
+  <main id="customerView" class="view customer-view">
+    <div class="booking-container">
+      <section class="store-card" aria-label="店舗情報">
+        <div class="store-card-main"><span class="store-overline">SALON INFORMATION</span><h1 id="publicStoreTitle">SCENE 中目黒店</h1><p id="publicStoreAddress">東京都目黒区上目黒 1-12-3 · 中目黒駅から徒歩4分</p></div>
+        <button id="storeDetailsToggle" class="store-info-toggle" aria-expanded="false">営業時間・アクセス <span>＋</span></button>
+        <div id="storeDetails" class="store-details" hidden><div><b>営業時間</b><span>10:00〜19:00 · 不定休</span></div><div><b>所在地</b><span id="publicStoreAddressDetail">東京都目黒区上目黒 1-12-3</span></div><div><b>ご来店について</b><span>ご予約時間に店舗へお越しください。ご不明点は担当美容師へご連絡ください。</span></div></div>
+      </section>
+      <div id="storeInactiveNotice" class="notice-box" hidden>現在、この店舗ではオンライン予約を受け付けていません。担当美容師へ直接ご連絡ください。</div>
+
+      <section class="booking-section" id="booking">
+        <div class="booking-title"><div><div class="eyebrow"><span class="eyebrow-line"></span> APPOINTMENT</div><h2 id="publicBookingTitle">ご予約</h2><p>担当者とメニューを選び、空いている日時をお選びください。</p></div><span class="booking-title-flower" aria-hidden="true">✳</span></div>
+        <div class="booking-card">
+          <div class="booking-card-top">
+            <div class="booking-stepper" id="bookingStepper">
+              <div class="step active" data-step="1"><span>1</span><b>日時を選ぶ</b></div><i></i>
+              <div class="step" data-step="2"><span>2</span><b>連絡先</b></div><i></i>
+              <div class="step" data-step="3"><span>3</span><b>予約完了</b></div>
+            </div>
+          </div>
+          <div id="bookingCarousel" class="booking-carousel">
+          <div id="bookingStepOne" class="booking-stage">
+            <section class="form-section stylist-select-section">
+              <div class="form-heading"><span class="form-index">01</span><div><h3>担当者を選ぶ</h3><p>プロフィールや作品を見てお選びいただけます。</p></div></div>
+              <div class="stylist-options" id="stylistOptions"></div>
+              <p class="stylist-selection-note" id="stylistSelectionNote"></p>
+            </section>
+            <section class="form-section menu-select-section">
+              <div class="form-heading"><span class="form-index">02</span><div><h3>メニューを選ぶ</h3><p>メニューは一つお選びください。所要時間と料金をご確認ください。</p></div></div>
+              <div class="menu-options" id="menuOptions" role="radiogroup" aria-label="施術メニュー"></div>
+            </section>
+            <section class="form-section date-section">
+              <div class="availability-heading"><div><span class="form-index">03</span><div><h3>日時を選ぶ</h3><p>日付と時間を見比べて、空いている枠をお選びください。</p></div></div></div>
+              <div class="week-navigation"><button id="prevWeek" class="week-arrow" aria-label="前の7日を見る">‹ <span>前の週</span></button><b id="weekLabel"></b><button id="nextWeek" class="week-arrow" aria-label="次の7日を見る"><span>次の週</span> ›</button></div>
+              <div class="availability-legend"><span><i class="legend-open">○</i> 予約可</span><span><i class="legend-closed">×</i> 空きなし</span><small id="selectedDateTitle">担当者・メニューの空き状況</small></div>
+              <div class="availability-table-wrap"><table class="availability-table" aria-label="7日間の予約可能時間"><thead id="availabilityHead"></thead><tbody id="availabilityBody"></tbody></table></div>
+              <div class="availability-footnote">○で日時を選び、内容を確認してから「次へ」を押してください。</div>
+            </section>
+            <div id="selectedSlotReview" class="selected-slot-review" aria-live="polite" hidden><div><small>選択した予約枠</small><b id="selectedSlotSummary"></b></div><button type="button" id="clearSelectedSlot" aria-label="選択した日時を解除">×</button></div>
+            <button type="button" id="goToContact" class="button button-dark button-full booking-next-button" disabled><span id="goToContactLabel">日時を選択して次へ</span><span aria-hidden="true">→</span></button>
+          </div>
+          <div id="bookingStepTwo" class="booking-stage" hidden>
+            <button type="button" class="carousel-back" data-booking-back><span aria-hidden="true">←</span><span>日時を選び直す</span></button>
+            <div class="confirm-layout">
+              <form id="bookingForm" class="contact-form">
+                <div class="form-section">
+                  <div class="form-heading"><span class="form-index">04</span><div><h3>ご連絡先</h3><p>予約確認に必要な項目だけご入力ください。</p></div></div>
+                  <label class="field-label">お名前 <span class="required">必須</span><input id="guestName" name="name" autocomplete="name" placeholder="例）山田 花子" required></label>
+                  <label class="field-label">電話番号 <span class="required">必須</span><input id="guestPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="例）09012345678" required></label>
+                  <label class="field-label">担当美容師へのメモ <span class="optional">任意</span><textarea id="guestNote" name="note" rows="3" placeholder="ご希望や事前に伝えておきたいこと"></textarea></label>
+                  <label class="line-optin"><input id="lineOptin" type="checkbox"><span class="fake-check"></span><span><b>LINEで予約のお知らせを受け取る</b><small>LINE友だち追加・通知は任意です。LINEを使わずに予約できます。</small></span><span class="line-mark">LINE</span></label>
+                  <label class="policy-check"><input id="policyCheck" type="checkbox" required><span>キャンセルポリシーと個人情報の取扱いに同意する <span class="required">必須</span></span></label>
+                </div>
+                <div class="form-error" id="bookingError" role="alert"></div>
+                <button type="button" class="carousel-back carousel-back-bottom" data-booking-back><span aria-hidden="true">←</span><span>日時・メニューを選び直す</span></button>
+                <button class="button button-dark button-full" type="submit">予約内容を確認して確定 <span aria-hidden="true">→</span></button>
+                <p class="payment-hint">施術料金は来店時に担当美容師へお支払いください。</p>
+              </form>
+              <aside class="booking-summary" id="bookingSummary"></aside>
+            </div>
+          </div>
+          <div id="bookingSuccess" class="booking-stage success-stage" hidden>
+            <div class="success-mark">✓</div><div class="eyebrow"><span class="eyebrow-line"></span> BOOKING CONFIRMED</div>
+            <h2>ご予約が完了しました</h2><p class="success-copy">予約内容をご確認ください。</p>
+            <div id="successDetails" class="success-details"></div>
+            <div class="success-actions"><button class="button button-dark" id="newBooking">別の日時を予約する</button></div>
+            <p class="success-footnote">日時の変更・キャンセルは店舗へお電話ください。</p>
+          </div>
+          </div>
+        </div>
+      </section>
+      <footer class="customer-footer"><span id="publicStoreFooter">SCENE 中目黒店</span><span>予約について · キャンセルポリシー · 個人情報の取扱い</span><span>© SCENE</span></footer>
+    </div>
+  </main>
+
+  <main id="opsView" class="view ops-view" hidden>
+    <aside class="sidebar">
+      <div class="workspace-label">WORKSPACE</div>
+      <div class="workspace-card" id="workspaceCard"><div class="workspace-avatar">K</div><div><b id="workspaceTitle">knot. 吉祥寺店</b><small id="workspaceSub">店舗オーナー</small></div></div>
+      <div class="role-picker"><small id="roleLabel">店舗管理者</small><label class="store-switcher" id="storeSwitcher"><span>屋号店舗</span><select id="storeSelector" aria-label="屋号店舗"></select></label></div>
+      <nav id="opsNav" class="side-nav" aria-label="運営メニュー"></nav>
+      <div class="sidebar-bottom"><div class="support-card"><span class="support-icon">?</span><div><b>操作に迷ったら</b><small>サポートに相談できます</small></div><span>↗</span></div><div class="profile-mini"><div class="profile-avatar">HN</div><div><b id="profileName">はるか 今井</b><small id="profileRole">店舗オーナー</small></div><button aria-label="プロフィール">···</button></div></div>
+    </aside>
+    <section class="ops-main">
+      <header class="ops-topbar"><div class="breadcrumb"><span id="breadcrumbStore">knot. 吉祥寺店</span><i>/</i><b id="breadcrumbTitle">ホーム</b></div><div class="ops-top-actions"><button class="small-button" id="opsCustomerPreview" type="button">予約ページを見る ↗</button><button class="icon-button" aria-label="通知">♧<i class="notification-dot"></i></button><span class="today-label" id="opsToday"></span><button class="icon-button user-icon" aria-label="ユーザーメニュー">HN</button></div></header>
+      <div id="opsContent" class="ops-content"></div>
+      <footer class="ops-footer"><span>SCENE workspace <b>DEMO</b></span><span>データはこのブラウザ内でのみ動作します</span></footer>
+    </section>
+  </main>
+  <div id="customerDetailOverlay" class="customer-detail-overlay" hidden>
+    <section id="customerDetailDialog" class="customer-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="customerDetailTitle">
+      <header class="detail-dialog-header"><div><div class="page-kicker">CUSTOMER VISIT</div><h2 id="customerDetailTitle">お客さま情報</h2></div><button id="closeCustomerDetail" class="icon-button" type="button" aria-label="閉じる">×</button></header>
+      <div id="customerDetailContent" class="customer-detail-content"></div>
+      <footer class="detail-dialog-actions"><button class="small-button" id="cancelCustomerDetail" type="button">閉じる</button><button class="small-button primary" id="saveCustomerRecord" type="button">来店記録を保存</button></footer>
+    </section>
+  </div>
+  <div id="staffEditorOverlay" class="staff-editor-overlay" hidden>
+    <section class="staff-editor-dialog" role="dialog" aria-modal="true" aria-labelledby="staffEditorTitle">
+      <header class="detail-dialog-header"><div><div class="page-kicker">TEAM PROFILE</div><h2 id="staffEditorTitle">スタッフを登録する</h2></div><button id="closeStaffEditor" class="icon-button" type="button" aria-label="閉じる">×</button></header>
+      <form id="staffEditorForm">
+        <input id="staffEditorId" name="staffId" type="hidden"><input id="staffEditorStoreId" name="storeId" type="hidden">
+        <div class="staff-editor-content">
+          <div class="staff-editor-photo-row"><div id="staffEditorPhoto" class="staff-editor-photo"><span>写真</span></div><div><label class="small-button" for="staffEditorPhotoInput">プロフィール写真を選ぶ</label><input id="staffEditorPhotoInput" type="file" accept="image/*" capture="environment" hidden><small>スマートフォン写真も縦 3:4 に自動調整して、予約ページへ表示します。</small></div></div>
+          <label class="field-label">スタッフ名<input name="name" required placeholder="例）山田 花子"></label>
+          <label class="field-label">プロフィールの肩書<input name="displayTitle" required maxlength="30" placeholder="例）スタイリスト"></label>
+          <label class="field-label">得意分野<input name="specialty" required placeholder="例）ボブ・透明感カラー"></label>
+          <label class="field-label">美容師歴<input name="years" type="number" min="0" max="60" value="1" required></label>
+          <label class="field-label">プロフィール紹介<textarea name="bio" rows="3" required placeholder="お客さま向けの紹介文"></textarea></label>
+          <label class="field-label">Instagram のリンク<input name="instagramUrl" type="url" inputmode="url" placeholder="https://www.instagram.com/..."></label>
+          <label class="field-label">作品サイト・その他のリンク<input name="portfolioUrl" type="url" inputmode="url" placeholder="https://..."></label>
+          <section class="staff-login-card">
+            <div><b>ログイン・予約通知</b><p>メールアドレスはログインと予約通知に使用します。パスワードは本人が設定し、この画面には保存・表示しません。</p></div>
+            <label class="field-label">ログイン用メールアドレス<input name="email" type="email" autocomplete="email" required placeholder="name@example.jp"></label>
+            <p class="email-notify-note">このメールアドレスへ、予約が入ったときの通知もお送りします。</p>
+            <div id="staffLoginHelp" class="small-muted">登録後、パスワード設定用メールを送信します（デモ表示）。</div>
+            <button id="resetStaffPassword" class="small-button" type="button" hidden>パスワード再設定メールを送る</button>
+          </section>
+          <section id="staffLineConnectPanel" class="line-connect-card" aria-live="polite">
+            <div><b>予約通知のLINE</b><span id="staffLineStatus" class="line-connect-status">未連携</span></div>
+            <p id="staffLineHelp">スタッフ本人のLINEアカウントを連携すると、このスタッフ宛ての予約通知を受け取れます。</p>
+            <button id="connectStaffLine" class="small-button" type="button">LINE連携を設定</button>
+            <small>このHTMLモックでは連携状態のみを表示し、LINEへの接続・通知は行いません。</small>
+          </section>
+        </div>
+        <footer class="detail-dialog-actions"><button id="cancelStaffEditor" class="small-button" type="button">キャンセル</button><button class="small-button primary" type="submit">スタッフ情報を保存</button></footer>
+      </form>
+    </section>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
