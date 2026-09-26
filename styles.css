@@ -1245,3 +1245,155 @@ body.admin-mode .system-venue-shortcut .small-button { min-height: 40px; }
   .schedule-grid .schedule-time-head, .schedule-grid .schedule-time-label { width: 58px; }
   .closure-form { grid-template-columns: 1fr; }
 }
+
+/* Mobile layout for every operations role and page. */
+@media (max-width: 700px) {
+  body.admin-mode,
+  body.admin-mode #app,
+  body.admin-mode .ops-view,
+  body.admin-mode .ops-main,
+  body.admin-mode #opsContent { min-width: 0; max-width: 100%; }
+  body.admin-mode { overflow-x: hidden; }
+  body.admin-mode .ops-view { display: flex; flex-direction: column; min-height: 100vh; }
+
+  /* Keep account, tenant selector, and navigation reachable without a tall sidebar. */
+  body.admin-mode .sidebar {
+    position: relative; top: auto; z-index: 7; display: block; width: 100%; height: auto;
+    padding: 9px 12px 8px; border: 0; border-bottom: 1px solid #e3e6de;
+    box-shadow: 0 2px 8px rgba(39,48,37,.04);
+  }
+  body.admin-mode .workspace-label,
+  body.admin-mode .workspace-card,
+  body.admin-mode .support-card,
+  body.admin-mode .profile-mini,
+  body.admin-mode .role-picker > small { display: none; }
+  body.admin-mode .role-picker { margin: 0 0 8px; }
+  body.admin-mode .role-picker > div { max-width: 300px; margin: 0 auto; gap: 4px; padding: 4px; }
+  body.admin-mode .role-button { min-height: 38px; font-size: 13px; }
+  body.admin-mode .store-switcher { max-width: 100%; margin: 0 0 8px; font-size: 12px; }
+  body.admin-mode .store-switcher select { min-height: 42px; font-size: 16px; }
+  body.admin-mode .side-nav {
+    display: flex; flex-direction: row; gap: 6px; overflow-x: auto; overflow-y: hidden;
+    margin: 0 -12px; padding: 0 12px 3px; -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin; overscroll-behavior-x: contain;
+  }
+  body.admin-mode .side-nav > * { flex: 0 0 auto; }
+  body.admin-mode .nav-label { display: none; }
+  body.admin-mode .nav-item { flex: 0 0 auto; min-height: 42px; gap: 7px; padding: 9px 12px; font-size: 13px; }
+  body.admin-mode .nav-icon { width: auto; font-size: 15px; }
+  body.admin-mode .nav-count { min-width: 20px; height: 20px; font-size: 11px; }
+
+  body.admin-mode .ops-main { width: 100%; }
+  body.admin-mode .ops-topbar {
+    position: relative; top: auto; z-index: 2; min-height: 54px; padding: 7px 14px;
+    gap: 10px; align-items: center; flex-wrap: wrap;
+  }
+  body.admin-mode .breadcrumb { min-width: 0; flex: 1 1 120px; gap: 6px; font-size: 12px; }
+  body.admin-mode .breadcrumb > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  body.admin-mode .breadcrumb b { font-size: 12px; white-space: nowrap; }
+  body.admin-mode .ops-top-actions { min-width: 0; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  body.admin-mode #opsCustomerPreview { min-height: 38px; padding: 7px 9px; font-size: 12px; }
+  body.admin-mode .ops-top-actions .icon-button { min-width: 34px; min-height: 34px; }
+  body.admin-mode .today-label { font-size: 11px; }
+  body.admin-mode .ops-content { width: 100%; min-height: 0; padding: 20px 14px 34px; }
+  body.admin-mode .page-header { align-items: stretch; flex-direction: column; gap: 12px; margin-bottom: 17px; }
+  body.admin-mode .page-header h1 { font-size: 25px; line-height: 1.25; }
+  body.admin-mode .page-header p { max-width: none; font-size: 14px; line-height: 1.65; }
+  body.admin-mode .page-actions { width: 100%; flex-wrap: wrap; }
+  body.admin-mode .page-actions > * { min-height: 42px; }
+  body.admin-mode .small-button,
+  body.admin-mode .table-action { min-height: 40px; padding: 8px 11px; font-size: 13px; }
+
+  body.admin-mode .metric-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 9px; }
+  body.admin-mode .metric-card { min-width: 0; padding: 12px; }
+  body.admin-mode .metric-top { gap: 6px; font-size: 12px; }
+  body.admin-mode .metric-value { overflow-wrap: anywhere; font-size: 24px; }
+  body.admin-mode .metric-foot { font-size: 11px; line-height: 1.5; }
+  body.admin-mode .ops-grid-two,
+  body.admin-mode .ops-grid,
+  body.admin-mode .setting-grid,
+  body.admin-mode .billing-note { grid-template-columns: minmax(0,1fr); gap: 12px; }
+  body.admin-mode .resource-grid { grid-template-columns: minmax(0,1fr); gap: 10px; }
+  body.admin-mode .panel,
+  body.admin-mode .metric-card,
+  body.admin-mode .plan-card,
+  body.admin-mode .store-create-panel,
+  body.admin-mode .store-settings-form { min-width: 0; }
+  body.admin-mode .panel-head { gap: 10px; padding: 13px 14px; }
+  body.admin-mode .panel-head h2,
+  body.admin-mode .panel h2 { font-size: 17px; line-height: 1.4; }
+  body.admin-mode .panel-head p { font-size: 13px; line-height: 1.55; }
+  body.admin-mode .occupancy-body { padding: 14px; }
+  body.admin-mode .schedule-row { grid-template-columns: 52px minmax(0,1fr); gap: 8px; }
+  body.admin-mode .schedule-seat { grid-column: 2; justify-self: start; }
+  body.admin-mode .upcoming-row { align-items: flex-start; }
+  body.admin-mode .upcoming-row > div { min-width: 0; }
+  body.admin-mode .upcoming-row b { font-size: 14px; }
+  body.admin-mode .upcoming-row small { font-size: 12px; line-height: 1.5; }
+
+  /* Wide datasets stay inside a horizontally scrollable region. */
+  body.admin-mode .data-table-wrap,
+  body.admin-mode .calendar-grid-wrap,
+  body.admin-mode .schedule-grid-scroll { width: 100%; max-width: 100%; overflow: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+  body.admin-mode .data-table { min-width: 650px; font-size: 13px; }
+  body.admin-mode .data-table th { padding: 10px 11px; font-size: 12px; }
+  body.admin-mode .data-table td { padding: 11px; font-size: 13px; }
+  body.admin-mode .table-sub { font-size: 11px; }
+  body.admin-mode .filter-row { align-items: stretch; }
+  body.admin-mode .search-box { flex: 1 1 100%; min-width: 0; }
+  body.admin-mode .search-box input,
+  body.admin-mode .filter-select { width: 100%; min-height: 42px; font-size: 16px; }
+  body.admin-mode .calendar-toolbar { gap: 8px; }
+  body.admin-mode .calendar-toolbar > * { min-height: 40px; }
+  body.admin-mode .calendar-toolbar strong { flex: 1 1 100%; order: -1; font-size: 14px; }
+
+  /* Stack forms and controls before they become cramped. */
+  body.admin-mode .store-form,
+  body.admin-mode .store-settings-form,
+  body.admin-mode .equipment-create-form,
+  body.admin-mode .schedule-form,
+  body.admin-mode .closure-form,
+  body.admin-mode .stylist-profile-form { grid-template-columns: minmax(0,1fr); gap: 12px; }
+  body.admin-mode .store-form .field-label,
+  body.admin-mode .store-settings-form .field-label,
+  body.admin-mode .stylist-profile-form label,
+  body.admin-mode .closure-form label { min-width: 0; font-size: 13px; }
+  body.admin-mode .store-form input,
+  body.admin-mode .store-form select,
+  body.admin-mode .store-settings-form input,
+  body.admin-mode .store-settings-form select,
+  body.admin-mode .stylist-profile-form input,
+  body.admin-mode .stylist-profile-form textarea,
+  body.admin-mode .closure-form input,
+  body.admin-mode .closure-form select { width: 100%; min-width: 0; min-height: 44px; font-size: 16px; }
+  body.admin-mode .store-form-actions { grid-column: auto; display: flex; flex-wrap: wrap; }
+  body.admin-mode .store-form-actions > * { flex: 1 1 150px; }
+  body.admin-mode .field-label { min-width: 0; font-size: 13px; }
+  body.admin-mode .field-label input,
+  body.admin-mode .field-label textarea,
+  body.admin-mode .field-label select,
+  body.admin-mode .equipment-create-form input,
+  body.admin-mode .equipment-create-form select,
+  body.admin-mode .schedule-form input,
+  body.admin-mode .schedule-form select { width: 100%; min-width: 0; min-height: 44px; font-size: 16px; }
+  body.admin-mode .staff-card-grid { grid-template-columns: minmax(0,1fr); }
+  body.admin-mode .staff-card-grid .stylist-option { min-width: 0; }
+  body.admin-mode .staff-editor-modal,
+  body.admin-mode .customer-detail-dialog { width: min(100vw, 620px); max-width: 100vw; max-height: 100dvh; overflow: auto; }
+  body.admin-mode .schedule-editor-panel { margin-inline: 0; padding: 12px; }
+  body.admin-mode .schedule-grid-scroll { margin-inline: 0; }
+  body.admin-mode .schedule-grid { min-width: 680px; }
+  body.admin-mode .schedule-week-nav { width: 100%; }
+  body.admin-mode .schedule-week-nav .small-button { min-height: 40px; }
+  body.admin-mode .ops-footer { padding: 13px 14px; font-size: 11px; line-height: 1.5; }
+}
+
+@media (max-width: 390px) {
+  body.admin-mode .ops-content { padding-inline: 11px; }
+  body.admin-mode .ops-topbar { padding-inline: 11px; }
+  body.admin-mode .metric-grid { grid-template-columns: minmax(0,1fr); }
+  body.admin-mode .ops-top-actions { width: 100%; justify-content: space-between; }
+  body.admin-mode .breadcrumb { flex-basis: 100%; }
+  body.admin-mode .staff-card-grid .stylist-option { grid-template-columns: 88px minmax(0,1fr); }
+  body.admin-mode .staff-card-grid .stylist-option .profile-photo { width: 88px; }
+}
