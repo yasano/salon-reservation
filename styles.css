@@ -1397,3 +1397,26 @@ body.admin-mode .system-venue-shortcut .small-button { min-height: 40px; }
   body.admin-mode .staff-card-grid .stylist-option { grid-template-columns: 88px minmax(0,1fr); }
   body.admin-mode .staff-card-grid .stylist-option .profile-photo { width: 88px; }
 }
+
+/* LINE and other embedded mobile browsers (WebKit and Android WebView). */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+
+@media (max-width: 700px) {
+  .view { min-height: 100vh; min-height: 100svh; }
+  .customer-topbar {
+    top: 0; height: auto; min-height: calc(60px + env(safe-area-inset-top, 0px));
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  .booking-container { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .availability-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+  .booking-container .booking-next-button { bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
+  .customer-detail-dialog, .staff-editor-dialog { max-height: 100vh; max-height: 100dvh; }
+  body.admin-mode .ops-view { min-height: 100vh; min-height: 100svh; }
+  body.admin-mode .sidebar { padding-top: calc(9px + env(safe-area-inset-top, 0px)); }
+  body.admin-mode .ops-content { padding-bottom: calc(34px + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (max-width: 360px) {
+  .booking-title h1 { font-size: 22px; line-height: 1.35; }
+}
